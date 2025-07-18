@@ -1,0 +1,10 @@
+watchdog
+requests
+python-dotenv
+re
+time
+collections
+os
+csv
+json
+datetime
