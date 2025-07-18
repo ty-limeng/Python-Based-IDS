@@ -30,8 +30,8 @@ sudo systemctl enable --now rsyslog auditd
 #### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/ty-limeng/Python-Based-IDS.git
-cd Python-Based-IDS
+git clone https://github.com/ty-limeng/PyIDS.git
+cd PyIDS
 ```
 
 ---
