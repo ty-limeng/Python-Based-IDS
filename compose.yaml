@@ -1,0 +1,13 @@
+services:
+  brute-monitor:
+    image: python-ids
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./data:/alerts # Either bind mount or docker volume
+      - /var/log/auth.log:/var/log/auth.log:ro # Mount auth.log in read only (ro)
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - DESTINATION_IP=${DESTINATION_IP}
+    user: "0:0" # Run in root to avoid file permission issues
