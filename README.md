@@ -99,4 +99,78 @@ Alerts include:
 - Number of failed attempts
 - Failure reason
 - Recommended actions
+---
+
+# 🛡️ Python-Based IDS (Docker Deployment)
+
+This guide explains how to build and run the Python-Based Intrusion Detection System (IDS) using Docker and Docker Compose.
+
+---
+
+## ⚙️ Build Docker Image
+
+To build the Docker image from the source code in this repository, run:
+
+```bash
+docker build --no-cache -t python-ids .
+```
+
+---
+
+## 📦 Docker Compose Setup
+
+Create a `.env` file in the root directory with the following content:
+
+```env
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_telegram_chat_id
+DESTINATION_IP=192.168.204.135
+```
+
+Then use the following `docker-compose.yml` configuration:
+
+```yaml
+services:
+  brute-monitor:
+    image: python-ids
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./data:/alerts # Either bind mount or docker volume
+      - /var/log/auth.log:/var/log/auth.log:ro # Mount auth.log in read only (ro)
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - DESTINATION_IP=${DESTINATION_IP}
+    user: "0:0" 
+```
+
+Start the service:
+
+```bash
+docker compose up -d
+```
+
+---
+
+## 🐚 Docker CLI Alternative
+
+If you prefer to run the container directly using Docker CLI:
+
+```bash
+docker run -d \
+  --name brute-monitor \
+  --network host \
+  --restart unless-stopped \
+  -v $(pwd)/data:/alerts \
+  -v /var/log/auth.log:/var/log/auth.log:ro \
+  -e TELEGRAM_BOT_TOKEN=your_telegram_bot_token \
+  -e TELEGRAM_CHAT_ID=your_telegram_chat_id \
+  -e DESTINATION_IP=192.168.204.135 \
+  --user 0:0 \
+  python-ids
+```
+
+
+
 
