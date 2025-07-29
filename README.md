@@ -114,7 +114,11 @@ To build the Docker image from the source code in this repository, run:
 ```bash
 docker build --no-cache -t python-ids .
 ```
+Or pull the prebuilt image from Docker Hub:
 
+```bash
+docker pull tybytes/pysentinel:v1.0
+```
 ---
 
 ## 📦 Docker Compose Setup
