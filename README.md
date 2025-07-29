@@ -142,7 +142,7 @@ services:
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
       - DESTINATION_IP=${DESTINATION_IP}
-    user: "0:0" 
+    user: "0:0" # Run in root to avoid file permission issues
 ```
 
 Start the service:
