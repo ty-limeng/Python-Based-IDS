@@ -35,7 +35,7 @@ def log_alert(case_id, source_ip, dest_ip, user, attempts, reason):
         "reason": reason
     }
     
-    with open('alerts.csv', 'a', newline='') as f:
+    with open('/alerts/alerts.csv', 'a', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=data.keys())
         if f.tell() == 0: writer.writeheader()
         writer.writerow(data)
